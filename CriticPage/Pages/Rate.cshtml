@@ -1,0 +1,74 @@
+﻿@page "/Rate/{id:int}"
+@model CriticPage.Pages.RateModel
+@{
+    string imagePath = "UploadImages\\" + Model.Movie.Image.Split("\\").Last();
+}
+<form method="post">
+    <div class="border p-3 mt-4">
+        <div class="row pb-2">
+            <h2>Detalles de la película</h2>
+        </div>
+        <div class="row">
+            <img src="~/@imagePath"  style="max-width: 250px">
+            <div class="flex-column">
+                <h2>@Model.Movie.Title</h2>
+                <p>@Model.Movie.Synopsis</p>
+            </div>
+            <div class="flex-column">
+                <h4>Estadísticas de las calificaciones</h4>
+                <table>
+                    <tr>
+                        <th>Puntuación mínima</th>
+                        <td>@Model.StatisticValues.Min</td>
+                    </tr>
+                    <tr>
+                        <th>Puntuación máxima</th>
+                        <td>@Model.StatisticValues.Max</td>
+                    </tr>
+                    <tr>
+                        <th>Promedio</th>
+                        <td>@Model.StatisticValues.Avg</td>
+                    </tr>
+                    <tr>
+                        <th>Moda</th>
+                        <td>@Model.StatisticValues.Mode</td>
+                    </tr>
+                    <tr>
+                        <th>Mediana</th>
+                        <td>@Model.StatisticValues.Median</td>
+                    </tr>
+                    <tr>
+                        <th>Desviación estándar</th>
+                        <td>@Model.StatisticValues.StandardDeviation</td>
+                    </tr>
+                </table>
+
+                <h4>Calificación</h4>
+                <div class="row">
+                @for (int i = 1; i < 6; i++)
+                {
+                    <input type="radio" asp-for="MovieScore.Score" value="@i" id="MovieScore.Score@(i)" />@i<br />
+                }
+                </div>
+                <div class="form-group">
+                    <label for="Comentario">Comentario</label>
+                    <textarea class="form-control" asp-for="MovieScore.Comment" id="Comentario" rows="3"></textarea>
+
+                </div>
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary" style="width:150px">Publicar</button>
+    </div>
+</form>
+<div class="border">
+    <h3>Comentarios</h3>
+    @foreach (var score in Model.MovieScores)
+    {
+        if (score.Comment != null)
+        {
+            <div class="p-2">@score.Comment</div>
+        }
+    }
+</div>
+

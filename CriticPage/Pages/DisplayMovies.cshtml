@@ -1,0 +1,49 @@
+﻿@page
+@model CriticPage.Pages.DisplayMoviesModel
+
+<form>
+    <p>
+        Buscar: <input type="text" name="Search">
+        <input type="submit" value="Filtro" />
+    </p>
+</form>
+<div class="container">
+    <div class="row justify-content-start">
+        @foreach (var movie in Model.Movies)
+        {
+            double rating = 0;
+            foreach (var item in Model.ratings)
+            {
+                if (movie.IdMovie == item.id)
+                {
+                    rating = item.rating;
+                    break;
+                }
+
+            }
+            <nav class="col-3">
+                <a asp-area="" asp-page="/Rate" asp-route-id="@movie.IdMovie" class="btn btn-light nav-link" style="max-width: 300px">
+                    <div class="text-center">
+
+                        @{
+                            string imagePath = "UploadImages\\" + movie.Image.Split("\\").Last();
+                            int a = 1;
+                        }
+                        <img src="@imagePath" alt="..." style="max-width: 250px">
+                        <h3>@movie.Title</h3>
+                        @if (rating == 0)
+                        {
+                            <h4>Rating: Sin puntuación</h4>
+                        }
+                        else
+                        {
+                            <h4>Rating: @rating / 5</h4>
+                        }
+
+                    </div>
+                </a>
+            </nav>
+
+        }
+    </div>
+</div>

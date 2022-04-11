@@ -1,0 +1,20 @@
+﻿@page
+@model CriticPage.Pages.LoginModel
+@{
+}
+
+<div class="container">
+    <form method="post">
+        <div class="form-group row">
+            <div class="col-3">
+                <label asp-for="Admin.Name"></label>
+                <input type="text" asp-for="Admin.Name" class="form-control"/>
+            </div>
+            <div class="col-3">
+                <label asp-for="Admin.Password"></label>
+                <input type="password" asp-for="Admin.Password" class="form-control"/>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width:150px">Log in</button>
+        </div>
+    </form>
+</div>
